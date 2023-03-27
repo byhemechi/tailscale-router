@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: byhemechi/tailscale-router:latest
+          tags: ghcr.io/byhemechi/tailscale-router:latest
