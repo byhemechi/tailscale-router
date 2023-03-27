@@ -26,6 +26,7 @@ func main() {
 	fmt.Println("tailscale-router: setting up")
 	tailnet := "-"
 	api_key := os.Getenv("TAILSCALE_API_TOKEN")
+	hostname := fmt.Sprintf("fly-%s", os.Getenv("FLY_REGION"))
 
 	fmt.Println("tailscale-router: tailnet name", tailnet)
 	fmt.Println("tailscale-router: api key", api_key)
@@ -87,7 +88,7 @@ func main() {
 	}
 
 	fmt.Println("tailscale-router: running tailscale up")
-	upcmd := exec.Command("bash", "-c", fmt.Sprintf("%s up --authkey=%s --advertise-routes=%s", tailscale_binary_path, key, subnet))
+	upcmd := exec.Command("bash", "-c", fmt.Sprintf("%s up --authkey=%s --advertise-routes=%s --advertise-exit-node --hostname=%s", tailscale_binary_path, key, subnet, hostname))
 	err = upcmd.Run()
 	if err != nil {
 		panic(err)
